@@ -12,6 +12,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with: 
+          python-version : 3.8
+
+      - name: Activate Virtual Environment
+        run: |
+          py -m venv venv
+          .\venv\Scripts\activate
       
       - name: Install Dependencies
         run: |
