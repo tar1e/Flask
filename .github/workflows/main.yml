@@ -14,9 +14,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Sync Files
-        run: |
-          robocopy ${{ github.workspace }} "C:\Users\matsvei_t\Desktop\всякое\python\Flask_app" /MIR /LOG:"$env:TEMP\robocopy-log.txt"
-      
-      - name: Display Robocopy Log
-        run: |
-          Get-Content "$env:TEMP\robocopy-log.txt"
+        run: robocopy ${{ github.workspace }} "C:\путь\к\вашему\локальному\каталогу" /MIR > "$env:TEMP\robocopy-log.txt"
+
+      - name: Upload Log as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: robocopy-log
+          path: $env:TEMP\robocopy-log.txt
