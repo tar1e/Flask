@@ -1,33 +1,19 @@
-name: CI/CD Pipeline 
+
+name: Sync Files to Local Machine
 
 on:
   push:
     branches:
-    - main
+      - main
 
-jobs: 
-  deploy:
-    runs-on: windows-latest 
+jobs:
+  sync_files:
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with: 
-          python-version : 3.6.2
-
-      - name: Activate Virtual Environment
+      - name: Sync Files
         run: |
-          py -m venv venv
-          .\venv\Scripts\Activate
-      
-      - name: Install Dependencies
-        run: |
-          py -m pip install --upgrade pip
-          pip install -r requirements.txt
-          
-      - name: Run Flask Application
-        run : | 
-          py application.py
+          robocopy ${{ github.workspace }} "C:\Users\matsvei_t\Desktop\всякое\python\Flask_app" /MIR
