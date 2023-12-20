@@ -1,4 +1,3 @@
-
 name: Sync Files to Local Machine
 
 on:
@@ -16,4 +15,8 @@ jobs:
 
       - name: Sync Files
         run: |
-          robocopy ${{ github.workspace }} "C:\Users\matsvei_t\Desktop\всякое\python\Flask_app" /MIR
+          robocopy ${{ github.workspace }} "C:\Users\matsvei_t\Desktop\всякое\python\Flask_app" /MIR /LOG:"$env:TEMP\robocopy-log.txt"
+      
+      - name: Display Robocopy Log
+        run: |
+          Get-Content "$env:TEMP\robocopy-log.txt"
